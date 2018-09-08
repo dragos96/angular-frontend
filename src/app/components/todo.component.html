@@ -1,0 +1,15 @@
+{{this.todo.name}}
+
+{{this.todo.dueDate|date}}
+
+{{this.todo.isDone}}
+
+{{this.todo.description}}
+
+<div *ngIf="todo.project">
+  Associated project: 
+  {{todo.project?.name}}
+</div>
+<a [routerLink]="['/todo']" routerLinkActive="router-link-active" >
+  <button mat-raised-button color="primary" > Go back </button>
+</a>

@@ -1,0 +1,54 @@
+<h1>Todo List:</h1>
+<button mat-fab class="fab-button" (click)="onPush()">
+  <mat-icon>add_alert</mat-icon>
+</button>
+
+
+<!-- FILTRARE ALL / OVERDUE / TODAY / FUTURE -->
+<mat-form-field>
+    <mat-select placeholder="Filter date" [(ngModel)]="selectedValue">
+      <mat-option *ngFor="let option of filterCriteria" [value]="option" >
+        {{option}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+SELECTED: {{selectedValue}}
+
+<!-- FILTARE PRIORITY LEVEL   LOW / HIGH / MEDIUM ... -->
+<mat-form-field>
+    <mat-select placeholder="priority" [(ngModel)]="priority">
+      <mat-option *ngFor="let option of priorityTypes" [value]="option.title" >
+        {{option.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<div class="row" style="padding-top: 4px;">
+  <div class="col-md-10 col-sm-12">
+    <div class="row" *ngFor="let task of tasks; let i = index">
+      
+      <div class="col-md-1 col-sm-6" *ngIf="this.shouldShowFilter(task, selectedValue, priority)">
+        <mat-checkbox (change)="saveTodos()" [(ngModel)]="task.isDone"></mat-checkbox>
+        <span >{{task.priority}}</span>&nbsp;<span style="background-color: red;">{{getTodoDateStatus(task)}}</span>
+      </div>
+      <div class="col-md-3 col-sm-6" *ngIf="this.shouldShowFilter(task, selectedValue, priority)">
+        <div>
+          <a [routerLink]="['/todo/',i]" routerLinkActive="router-link-active">
+            <span [ngClass]="{'strikethrough-text': task.isDone}">{{task.name}}</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6" *ngIf="this.shouldShowFilter(task, selectedValue, priority)">
+        <span [ngClass]="{'overdue-task': this.isTodoOverDue(task)}">{{task.dueDate|date}}</span>
+      </div>
+      <div class="col-md-4 col-sm-6" *ngIf="this.shouldShowFilter(task, selectedValue, priority)">
+        <button mat-raised-button color="warn" (click)="deleteTodo(task)" class="">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+        <button mat-raised-button color="info" (click)="editTodo(task)" class="">
+            <mat-icon>edit</mat-icon>
+          </button>
+      </div>
+    </div>
+  </div>
+</div>

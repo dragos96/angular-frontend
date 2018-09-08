@@ -1,0 +1,8 @@
+<mat-form-field>
+    <input matInput type="text" [(ngModel)]="projectModel.name" placeholder="Project Name">
+</mat-form-field>
+
+<button mat-raised-button color="primary" [mat-dialog-close]='this.projectModel'>
+    
+    <span >Add Project</span>
+</button>

@@ -1,0 +1,40 @@
+<mat-form-field>
+  <input matInput type="text" [(ngModel)]="newTodo.name" placeholder="Task Name">
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="newTodo.dueDate">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<mat-form-field>
+  <textarea matInput type="text" [(ngModel)]="newTodo.description" placeholder="Task Description"></textarea>
+</mat-form-field>
+
+
+
+<mat-form-field *ngIf="!newTodo.project">
+  <mat-select  placeholder="Associated project" [(ngModel)]="newTodo.project" >
+    <mat-option *ngFor="let option of projects" [value]="option" >
+      {{option.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+
+SELECTED: {{newTodo?.project?.name}}
+
+<mat-form-field>
+  <mat-select placeholder="priority" [(ngModel)]="newTodo.priority">
+    <mat-option *ngFor="let option of priorityTypes" [value]="option.title">
+      {{option.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+<button mat-raised-button color="primary" [mat-dialog-close]='this.newTodo'>
+  <span *ngIf="this.newTodo.isUpdated">Update Todo</span>
+  <span *ngIf="!this.newTodo.isUpdated">Add Todo</span>
+</button>

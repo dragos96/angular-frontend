@@ -1,0 +1,19 @@
+<div>
+
+<button mat-fab class="fab-button" (click)="addProject()">
+    <mat-icon>add_alert</mat-icon>
+  </button>
+<div>
+  <h2>Projects</h2>
+  <ul>
+
+    <li *ngFor="let p of projects">
+      <a [routerLink]="['details', p.name]" (click)="selectProject(p)">{{p.name}}</a>
+    </li>
+  </ul>
+
+</div>
+<router-outlet></router-outlet>
+
+<hr>
+<app-todo-reusable-list [tasks]="todosForSelectedProject" [associatedProject]="selectedProject"></app-todo-reusable-list>
