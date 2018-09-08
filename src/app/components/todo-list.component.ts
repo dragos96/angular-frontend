@@ -3,7 +3,6 @@ import { Todo } from '../models/todo.model';
 import { TodoService } from '../services/todo.service';
 import { MatDialog } from '../../../node_modules/@angular/material';
 import { NewTodoDialogComponent } from '../dialogs/new-todo-dialog.component';
-import { TodoremService } from '../services/todorem.service';
 import { ProjectService } from '../services/project.service';
 import { UtilityService } from '../services/utility.service';
 import { TodoPriority } from '../models/todo.priority.enum';
@@ -32,45 +31,19 @@ export class TodoListComponent implements OnInit {
   ngOnInit() {
     this.tasks = this.todoService.getTodos();
 
-    // this.todosRemService.getTodos().subscribe(values => {
-    //   this.tasks = values.json();
-    // });
+
     
     this.priorityTypes.push({ value: 'NONE', title: 'NONE' });
     for(let element of  this.utilityService.enumSelector(TodoPriority)){
       this.priorityTypes.push(element);
     }
-    // (let element of this.utilityService.enumSelector(TodoPriority)){
 
-    // }
-    // this.priorityTypes.push();
     this.priorityTypes.push({ value: 'ALL', title: 'ALL' });
     
-    if(this.DEBUG_COMPONENT){
-      this.debugTodoAdd();
-    }
+ 
   }
 
-  /* DEBUG */
-  debugTodoAdd(){
-    let localDebugTasks: Array<Todo> = [];
-
-    let dataYesterday : Date = new Date();
-    dataYesterday.setDate(dataYesterday.getDate() - 1);
-    localDebugTasks.push(new Todo('TODO_debug_1', false, dataYesterday, '', false));
-    let dataLastYear : Date = new Date();
-    dataLastYear.setFullYear(dataLastYear.getFullYear() - 1);
-    localDebugTasks.push(new Todo('TODO_debug_2', false, dataLastYear, '', false));
-
-    let dataLastMonth : Date = new Date();
-    dataLastMonth.setMonth(dataLastMonth.getMonth() - 1);
-    localDebugTasks.push(new Todo('TODO_debug_3', false, dataLastMonth, '', false));
-
-
-    this.todoService.saveTodos(localDebugTasks);
-  }
-
-  /* END DEBUG */
+  
 
   // save new todo dialog
   onPush() {
@@ -88,10 +61,7 @@ export class TodoListComponent implements OnInit {
       }
     });
 
-    // const newTaskObject: Todo = new Todo(this.newTaskName, false);
-    // this.tasks.push(newTaskObject);
-    // this.todoService.saveTodos(this.tasks);
-    // this.newTaskName = '';
+    
 
   }
 
@@ -104,11 +74,6 @@ export class TodoListComponent implements OnInit {
     this.saveTodos();
   }
 
-  // updateTodo(taskToEdit: Todo) {
-  //   // TODO: check which task from tasks array needs to be 'updated'
-
-  //   this.saveTodos();
-  // }
 
 
   shouldShowFilter(todo : Todo, optionFilterTime : string = null, optionFilterPriority : string = null){
@@ -123,7 +88,6 @@ export class TodoListComponent implements OnInit {
 
   editTodo(taskToEdit: Todo){
 
-    // TODO: clone the taskToEdit object
 
     console.log(taskToEdit);
 
@@ -139,7 +103,6 @@ export class TodoListComponent implements OnInit {
       if (result && result.name !== '') {
         console.log('ok');
         result.initialForm = taskToEdit;
-        // result.info = 'descriere random';
         result.isUpdated = false;
         this.todoService.updateTodo(result);
         this.tasks = this.todoService.getTodos();
@@ -157,26 +120,6 @@ export class TodoListComponent implements OnInit {
     let cmpResult = this.dateUtilService.dateCompare(dueDate, today);
     return cmpResult < 0;
 
-    // if(dueDate.getFullYear() > today.getFullYear()){
-    //   return false;
-    // }
-
-    // if(dueDate.getFullYear() < today.getFullYear()){
-    //   return true;
-    // }
-
-    // // same year
-    // if(dueDate.getMonth() > today.getMonth()){
-    //   return false;
-    // }
-
-    // if(dueDate.getMonth() < today.getMonth()){
-    //   return true;
-    // }
-    // // same month
-
-    // return dueDate.getDate() - today.getDate() < 0;
-
   
   }
 
@@ -188,9 +131,6 @@ export class TodoListComponent implements OnInit {
     return cmpResult == 0;
 
 
-    // return dueDate.getFullYear() == today.getFullYear() &&
-    //   dueDate.getMonth() == today.getMonth() &&
-    //   dueDate.getDate() == today.getDate();
   }
 
   isTodoFuture(todo: Todo){

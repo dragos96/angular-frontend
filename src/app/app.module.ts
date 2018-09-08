@@ -12,17 +12,14 @@ import {MatListModule} from '@angular/material/list';
 
 import { FormsModule } from '../../node_modules/@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-// import { MatFormField } from '@angular/material/form-field';
 
 import { TodoService } from './services/todo.service';
-import { TodoremService } from './services/todorem.service';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Route } from '@angular/router';
 import { NewTodoDialogComponent } from './dialogs/new-todo-dialog.component';
 import { TodoComponent } from './components/todo.component';
 import { TodoListComponent } from './components/todo-list.component';
-import { TestComponent } from './test/test.component';
 import { HttpModule } from '@angular/http';
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { ProjectService } from './services/project.service';
@@ -48,7 +45,6 @@ children : [
     NewTodoDialogComponent,
     TodoComponent,
     TodoListComponent,
-    TestComponent,
     ProjectListComponent,
     NewProjectDialogComponent,
     ProjectDetailsComponent,
@@ -74,7 +70,7 @@ children : [
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [TodoService, TodoremService, ProjectService],
+  providers: [TodoService, ProjectService],
   bootstrap: [AppComponent],
   entryComponents: [
     NewTodoDialogComponent, NewProjectDialogComponent
